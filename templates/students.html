@@ -1,0 +1,35 @@
+<html>
+  <body>
+    <div>
+      <div class="flash">
+        {% with messages = get_flashed_messages() %} {% if messages %}
+        <ul>
+          {% for message in messages %}
+          <li>{{ message }}</li>
+          {% endfor %}
+        </ul>
+        {% endif %} {% endwith %}
+      </div>
+      <h1>Students</h1>
+
+      <a href="{{ url_for('newStudent') }}"><h3>Add a Student</h3></a>
+
+      {% for student in students %}
+
+      <p>
+        <a href="{{url_for('showStudent', student_id = student.id)}}">{{
+          student.name
+        }}</a>
+        <a href="{{url_for('editStudent', student_id = student.id)}}">Edit</a>
+        <a href="{{url_for('deleteStudent', student_id = student.id)}}"
+          >Delete</a
+        >
+      </p>
+
+      {% endfor %}
+    </div>
+
+    <br />
+    <a href="/">Home</a>
+  </body>
+</html>

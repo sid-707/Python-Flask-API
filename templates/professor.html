@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <div class = 'flash'>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+            {% endwith %}
+
+        </div>
+        <div>
+            <h1>Professor Details</h1>
+
+            <p>ID: {{professor.id}}</p>
+            <p>Name: {{professor.name}}</p>
+            <p>Username: {{professor.username}}</p>
+            <p>Extension: {{professor.extension}}</p>
+            <p>Department: {{professor.department}}</p>
+
+        </div>
+        <br />
+        <a href = "{{url_for('showProfessors')}}">Professors</a>
+        <br />
+        <a href = "/">Home</a>
+    </body>
+</html>

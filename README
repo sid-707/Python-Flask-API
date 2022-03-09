@@ -1,0 +1,190 @@
+This is a REST API made using Flask, sqlite3, SQLAlchemy, and Python3. 
+I use the MVC and Singleton Design Patterns. Also, I try to use the SOLID
+principles as much as I can to design the models, alongwith the DRY 
+principle throughout the app to minimize code repetition.
+
+The models also have validation and raise appropriate exceptions which are 
+forwarded by the controller to the user as flash messages.
+
+The API is meant to store contact information for students and professors of a 
+university by an administrator. Each of these two different
+types of contacts extends from a Contact Class. Each Contact has a Name
+and a Username. Additionally, each Student has a Major while each Professor 
+has a Department and an Extention.
+
+You can perform all the CRUD operations on the list of contacts.
+
+There are also appropriate error codes for each endpoint.
+
+User Stories:
+1) As a user, I want to access my contacts on my other devices so that their contact information
+    is always close at hand.
+2) As a university administrator, I want other administrators to access my list of contacts so
+    that they can see my contact list.
+3) As a user, I would like to edit my contacts from other devices as well so that my contact list
+    becomes more convenient to manage.
+4) As a developer, I would like to see a log of the requests that come in from users.
+
+All the user stories have been fulfilled in this application. Stories 1-3 are described in the Endpoints
+section below. While Story 4 is accomplished by defining a Log Singleton class in the logs folder. This
+class is used by the controller to store a list of events in logs.txt in the app root directory.
+
+
+Tools:
+    Flask: is a web application framework built with Python.
+
+    SQLAlchemy: an ORM library. Object Relational Mapping (ORM) is a programming technique to convert
+                any class into a table in a database while the properties of the class become
+                the attributes of the table.
+                I used this library to define the resources for my application.
+
+Requirements:
+    Python 3.7.2
+    Flask 1.0.2
+    SQLAlchemy 1.3.0
+
+Instructions for Running:
+    Run "pip3 install -r requirements.txt" to install the necessary packages.
+    Run "python3 database_setup.py" to set up the sqlite3 database.
+    Run "python3 addContacts.py" to add sample contacts.
+    Run "python3 controller.py" to run the server.
+
+    Open a web browser and go to localhost:5000
+
+                                         --------------------------------
+
+Endpoints:
+
+-----------------------------------------------------------------------------------------
+|   CRUD    |    HTTP     |           URL            |       Response Description       |
+| Operation |   Method    |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|  Create   |    POST     |  /professors/new         |  Add a new professor to the      |
+|           |             |                          |  professors table.               |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /professors             |  Return all the entries in the   |
+|           |             |                          |  professors table.               |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /professors/json        |  Return all the entries in the   |
+|           |             |                          |  professors table in JSON.       |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /professors/:id         |  Return the professor with the   |
+|           |             |                          |  specified id.                   |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /professors/:id/json    |  Return the professor with the   |
+|           |             |                          |  specified id in JSON.           |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|  Update   |    POST     |  /professors/:id/edit    |  Update the professor with the   |
+|           |             |                          |  specified id.                   |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|  Delete   |    POST     |  /professors/:id/delete  |  Delete the professor with the   |
+|           |             |                          |  specified id.                   |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|  Create   |    POST     |  /students/new           |  Add a new student to the        |
+|           |             |                          |  students table.                 |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /students               |  Return all the entries in the   |
+|           |             |                          |  students table.                 |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /students/json          |  Return all the entries in the   |
+|           |             |                          |  students table in JSON.         |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /students/:id           |  Return the student with the     |
+|           |             |                          |  specified id.                   |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|   Read    |    GET      |  /students/:id/json      |  Return the student with the     |
+|           |             |                          |  specified id in JSON.           |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|  Update   |    POST     |  /students/:id/edit      |  Update the student with the     |
+|           |             |                          |  specified id.                   |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+|           |             |                          |                                  |
+|  Delete   |    POST     |  /students/:id/delete    |  Delete the student with the     |
+|           |             |                          |  specified id.                   |
+|           |             |                          |                                  |
+-----------------------------------------------------------------------------------------
+
+Error Codes
+
+Upon success of any Read, Delete, or Update request a response code of 200 will be sent to the client.
+For a Create request, a response code of 201 will be returned to indicate that the contact has been created.
+
+For any invalid parameters in the request, an error code of 400 will be returned.
+
+                                         --------------------------------
+
+User Stories 1 and 2 can be accomplished by making a GET request to /professors, /students, /professors/:id,
+/students/:id, /professors/json, /students/json, /professors/:id/json, /students/:id/json to return the
+corresponding data.
+
+User Story 3 can be accomplished by making a POST request to /professors/:id/edit or /students/:id/edit to
+edit the corresponding contact. Similarly making a POST request to /professors/:id/delete or
+/students/:id/delete deletes the corresponding contact.
+Additionally, making a POST request to /professors/new or /students/new will add an entry to the
+corresponding tables.
+
+#################
+
+Design Patterns
+
+#################
+
+-------------------------------------------------------------------------------------------------------------------------
+|                                                                                                                       |
+|   Model View Controller                                                                                               |
+|                                                                                                                       |
+|   - models/*                                           - Contains the models that define Professors and Students.     |
+|                                                                                                                       |
+|   - templates/*                                        - Contains the HTML files. Represents the View of MVC.         |
+|                                                                                                                       |
+|   - controller.py                                      - Controller. Handles every request and the app is run from    |
+|                                                          here.                                                        |
+|                                                                                                                       |
+-------------------------------------------------------------------------------------------------------------------------
+|                                                                                                                       |
+|   Singleton Factory Design Pattern                                                                                    |
+|                                                                                                                       |
+|   - modules/Singleton.py         - Line 2             - Classes in Python 3 are treated as objects that are           |
+|                                                         all ultimately instances of a class called 'type'.            |
+|                                                         'type' is called a metaclass in Python 3. The Singleton       |
+|                                                         class that I use extends from this 'type' class so that       |
+|                                                         it can be a metaclass for the Log class.                      |
+|                                                         Writing a metaclass gives you more control as to how          |
+|                                                         objects are created as explained in the next point.           |
+|                                                                                                                       |
+|   - log/Log.py                   - Line 6             - There should not be more than one instance of a Log           |
+|                                                         object. This is why Log uses Singleton as a metaclass because |
+|                                                         I wanted a class that followed the Singleton Design Pattern.  |
+|                                                         Since Singleton is a metaclass, I can conditionally call      |
+|                                                         the __new__ and __init__ methods that Python normally         |
+|                                                         executes in any regular class to create objects of            |
+|                                                         that class. This allows me to ignore object creation          |
+|                                                         if an instance of Log already exists.                         |
+|                                                                                                                       |
+-------------------------------------------------------------------------------------------------------------------------

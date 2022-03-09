@@ -1,0 +1,110 @@
+#####################
+OO Technique 1
+
+Exception Handling
+
+- models/Contact.py            - Lines 46, 52        - These exceptions catch invalid names, and
+                                                          usernames respectively.
+- models/Professor.py          - Lines 54, 57, 64    - These exceptions catch invalid extensions, and
+                                                        departments.
+- models/Student.py            - Line 45             - This exception catches invalid majors.
+
+   These are custom exceptions that can be found in the exceptions folder. I made them so that they can be
+   used by controller.py (on Lines 84, 128, 172, 255) to generate accurate flash messages that can be
+   displayed to the user.
+
+Class Invariants
+
+- models/Contact.py           - Lines 43 - 53       - Make sure name and username are
+                                                         valid values
+
+- models/Professor.py         - Lines 49 - 65       - Make sure department and extension are
+                                                         valid values
+
+- models/Student.py           - Line 42 - 46        - Make sure major is a valid value
+
+I would say that the combination of Exception Handling and Class Variants is an exemplary instance of OO design for
+this application. I spent a lot of time on error handling for Assignment 3 and that experience transferred over to
+A4. I used SQLAlchemy's validation features to catch any input errors and used custom exceptions to notify users
+of these errors.
+I think this is exemplary because even though the attributes are trivial and the data is quite simple, I've thought
+a lot about these topics thanks to these assignments and have definitely become more interested in user input
+validation.
+
+#####################
+OO Technique 2
+
+Pre and Post Conditions
+
+- models/Contact.py            - Lines 13 - 32      - Inform the developer about the expected inputs
+                                                      to the Contact class and how they are stored
+                                                      in the object.
+
+- models/Professor.py          - Lines 10 - 37      - Inform the developer about the expected inputs
+                                                      to the Professor class and how they are stored
+                                                      in the object.
+
+- models/Student.py            - Lines 9 - 32       - Inform the developer about the expected inputs
+                                                      to the Student class and how they are stored
+                                                      in the object.
+
+- log/Log.py                   - Lines 5 - 22       - Inform the developer about the expected inputs
+                                                      to the Log class and how they are stored
+                                                      in the object.
+
+I think this is exemplary because I make the conditions very detailed. These conditions also play a big role in
+defining validation checks and their associated exceptions as described above.
+
+#####################
+OO Technique 3
+
+Encapsulation, Accessors, Mutators, Instance Variables
+
+- models/Contact.py                                 - High Cohesion. Every class' properties
+- models/Student.py                                   are kept private since this is good
+- models/Professor.py                                 design. Also there are appropriate getter
+                                                      and setter methods
+- log/Log.py
+
+
+Class Hierarchies and Method Overriding
+ - models/Contact.py           - Line 99            - the serialize method in models/Contact.py is overriden to
+ - models/Professor.py         - Line 109             to accommodate the differences between models/Professor.py and
+ - models/Student.py           - Line 71              models/Student.py
+
+
+Class Variables
+ - models/Contact.py           - Line 35            - The domain name is common to all
+                                                      contacts.
+Abstract Classes
+
+- models/Contact.py            - Line 12            - This is an abstract class that contains
+                                                      behaviours and properties common to
+                                                      models/Professor.py and models/Student.py.
+                                                      SQLAlchemy's Base class is used to define a
+                                                      table in the database. The AbstractConcreteBase
+                                                      class is used to define an abstract Base class
+                                                      that does not need its own table.
+
+I think these are exemplary of Inheritance and class design since I try to remove as much redundancy as possible.
+I also made a constants file in constants/constants.py to define some of the terms that I will use throughout the app.
+For example, the DATABASE_URL is used on line 10 of database_setup.py, line 12 of addContacts.py, and line 27
+of controller.py
+
+#####################
+A4 Improvements
+
+I redid the entire desktop application from assignments 1-3 as a web application. Lines 49 - 137 in controller.py
+define the endpoints for the Professor table while lines 150 - 234 define the endpoints for the Students table.
+I learnt a lot about RESTful API design with this endeavour.
+
+Another technique that I learned about was Object Relational Mapping (ORM). I found the concept of mapping
+objects to tables in a database very interesting. All of the models for the data are defined as classes in the models
+folder. The only difference being that the attributes of each class are defined as SQLAlchemy Column objects. These can
+be seen on Lines 38 - 40 of Contact.py, Lines 41 - 42 of Professor.py, and Line 35 of Student.py
+Everything else in the files resembles a standard Python class, except for the
+SQLAlchemy hybrid-property and validates decorators.
+The hybrid-property decorator (Lines 55, 59, 79 of Contact.py. Lines 67 and 86 of Professor.py. Line 48 of Student.py)
+works similarly to the standard Python property decorator.
+The validates decorator (Lines 43 and 49 of Contact.py. Lines 49 and 61 of Professor.py. Line 42 of Student.py)
+is used to run a validation function before an attribute's value is set by a setter method.

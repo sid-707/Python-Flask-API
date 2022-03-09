@@ -1,0 +1,26 @@
+
+<html>
+    <body>
+        <h1>Add a New Professor</h1>
+
+        <form action="{{ url_for('newStudent')}}" method = 'post'>
+
+            <p>Name:</p>
+                <input type ='text' size='30' name='name'>
+            <p>Username:</p>
+                <input type ='text' size='30' name='username'>
+            <p>Major:</p>
+                <input type ='text' size='30' name='major'>
+
+            <p>
+                <input type='submit' value='Create'>
+                <a href = "{{url_for('showStudents')}}">Cancel</a>
+            </p>
+
+        </form>
+        <br />
+        <a href = "{{url_for('showStudents')}}">Students</a>
+        <br />
+        <a href = "/">Home</a>
+    </body>
+</html>

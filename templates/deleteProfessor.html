@@ -1,0 +1,13 @@
+<html>
+    <body>
+        <h1>Delete Professor</h1>
+        <p> Are you sure you want to delete {{professor.name}}? </p>
+        <form action="{{url_for('deleteProfessor', professor_id = professor.id)}}" method = 'post'>
+            <input type='submit', value = 'Delete'>
+        </form>
+        <a href = "{{url_for('showProfessors')}}"> Cancel </a>
+
+        <br />
+        <a href = "/">Home</a>
+    </body>
+</html>
